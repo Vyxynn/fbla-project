@@ -1,0 +1,124 @@
+### ==========================================
+### PLAYER CREATION & RETRIEVAL
+### ==========================================
+
+### Health Check
+GET http://localhost:3000/
+
+### Create Player - Talan
+# @name createRyan
+POST http://localhost:3000/api/players
+Content-Type: application/json
+
+{
+  "name": "Talan"
+}
+
+### Create Player - Rikky
+# @name createAlice
+POST http://localhost:3000/api/players
+Content-Type: application/json
+
+{
+  "name": "Rikky"
+}
+
+### Create Player - Vi
+POST http://localhost:3000/api/players
+Content-Type: application/json
+
+{
+  "name": "Vi"
+}
+
+### Get All Players
+GET http://localhost:3000/api/players
+
+### Get Player by ID (replace with actual ID from create response)
+GET http://localhost:3000/api/players/0a8b00e0-dba2-4c3b-b6b5-3ee292224245
+
+### Get Player by Name
+GET http://localhost:3000/api/players/name/Ryan
+
+### ==========================================
+### STATS TRACKING
+### ==========================================
+
+### Ryan Wins (replace with Ryan's ID)
+POST http://localhost:3000/api/players/0a8b00e0-dba2-4c3b-b6b5-3ee292224245/stats
+Content-Type: application/json
+
+{
+  "result": "win"
+}
+
+### Ryan Wins Again
+POST http://localhost:3000/api/players/0a8b00e0-dba2-4c3b-b6b5-3ee292224245/stats
+Content-Type: application/json
+
+{
+  "result": "win"
+}
+
+### Ryan Loses
+POST http://localhost:3000/api/players/0a8b00e0-dba2-4c3b-b6b5-3ee292224245/stats
+Content-Type: application/json
+
+{
+  "result": "loss"
+}
+
+### Alice Wins
+POST http://localhost:3000/api/players/987c3871-e030-4381-8b58-4f9b7930ec85/stats
+Content-Type: application/json
+
+{
+  "result": "win"
+}
+
+### Alice Ties
+POST http://localhost:3000/api/players/987c3871-e030-4381-8b58-4f9b7930ec85/stats
+Content-Type: application/json
+
+{
+  "result": "tie"
+}
+
+### ==========================================
+### LEADERBOARD
+### ==========================================
+
+### Get Top 10 Leaderboard
+GET http://localhost:3000/api/leaderboard
+
+### Get Top 5 Leaderboard
+GET http://localhost:3000/api/leaderboard?limit=5
+
+### ==========================================
+### ERROR TESTING
+### ==========================================
+
+### Try to Create Player with No Name (should fail)
+POST http://localhost:3000/api/players
+Content-Type: application/json
+
+{}
+
+### Try to Create Duplicate Player (should fail)
+POST http://localhost:3000/api/players
+Content-Type: application/json
+
+{
+  "name": "Ryan"
+}
+
+### Try Invalid Stats Result (should fail)
+POST http://localhost:3000/api/players/PLAYER-ID-HERE/stats
+Content-Type: application/json
+
+{
+  "result": "invalid"
+}
+
+### Try to Get Non-existent Player (should fail)
+GET http://localhost:3000/api/players/fake-id-12345
