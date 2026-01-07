@@ -1,0 +1,10 @@
+/* frontend/src/styles/variables.css */
+
+:root {
+  --nav-bg:      #2c3e50;
+  --nav-text:    #ecf0f1;
+  --accent:      #ffdd57;
+
+  --brand-primary:   #3498db;
+  --brand-success:   #2ecc71;
+}
