@@ -1,10 +1,109 @@
 /* frontend/src/styles/variables.css */
 
 :root {
-  --nav-bg:      #2c3e50;
-  --nav-text:    #ecf0f1;
-  --accent:      #ffdd57;
+  /* Header colors */
+  --nav-bg: #2c3e50;
+  --nav-text: #ecf0f1;
+  --accent: #ffdd57;
 
-  --brand-primary:   #3498db;
-  --brand-success:   #2ecc71;
+  /* Form colors - Light Mode */
+  --form-bg: #f8f9fa;
+  --form-section-bg: #ffffff;
+  --form-border: #d1d5db;
+  --form-border-focus: #3498db;
+
+  /* Form text */
+  --form-label: #2c3e50;
+  --form-text: #34495e;
+  --form-placeholder: #95a5a6;
+
+  /* Form header */
+  --form-header-bg: #34495e;
+  --form-header-text: #ecf0f1;
+
+  /* Required field indicator */
+  --required-star: #e74c3c;
+
+  /* Form inputs */
+  --input-bg: #ffffff;
+  --input-text: #2c3e50;
+  --input-border: #bdc3c7;
+  --input-border-hover: #95a5a6;
+  --input-border-focus: #3498db;
+  --input-disabled-bg: #ecf0f1;
+
+  /* Form buttons */
+  --button-primary-bg: #3498db;
+  --button-primary-text: #ffffff;
+  --button-primary-hover: #2980b9;
+  --button-secondary-bg: #95a5a6;
+  --button-secondary-text: #ffffff;
+  --button-secondary-hover: #7f8c8d;
+
+  /* Validation states */
+  --error-bg: #fef2f2;
+  --error-border: #e74c3c;
+  --error-text: #c0392b;
+  --success-bg: #f0fdf4;
+  --success-border: #27ae60;
+  --success-text: #229954;
+  --warning-bg: #fffbeb;
+  --warning-border: #f39c12;
+  --warning-text: #d68910;
+
+  /* Form shadows */
+  --form-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --form-shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Dark Mode */
+[data-theme="dark"] {
+  /* Form colors - Dark Mode */
+  --form-bg: #1a1a1a;
+  --form-section-bg: #2d2d2d;
+  --form-border: #404040;
+  --form-border-focus: #5dade2;
+
+  /* Form text */
+  --form-label: #e0e0e0;
+  --form-text: #b0b0b0;
+  --form-placeholder: #6b6b6b;
+
+  /* Form header */
+  --form-header-bg: #212121;
+  --form-header-text: #ecf0f1;
+
+  /* Required field indicator */
+  --required-star: #ff6b6b;
+
+  /* Form inputs */
+  --input-bg: #2d2d2d;
+  --input-text: #e0e0e0;
+  --input-border: #404040;
+  --input-border-hover: #5a5a5a;
+  --input-border-focus: #5dade2;
+  --input-disabled-bg: #3a3a3a;
+
+  /* Form buttons */
+  --button-primary-bg: #5dade2;
+  --button-primary-text: #ffffff;
+  --button-primary-hover: #3498db;
+  --button-secondary-bg: #4a4a4a;
+  --button-secondary-text: #e0e0e0;
+  --button-secondary-hover: #5a5a5a;
+
+  /* Validation states */
+  --error-bg: #3d1f1f;
+  --error-border: #e74c3c;
+  --error-text: #ff6b6b;
+  --success-bg: #1f3d28;
+  --success-border: #27ae60;
+  --success-text: #5ecc8a;
+  --warning-bg: #3d331f;
+  --warning-border: #f39c12;
+  --warning-text: #f5b041;
+
+  /* Form shadows */
+  --form-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --form-shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
