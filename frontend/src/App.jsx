@@ -7,6 +7,7 @@ import Navbar from "./components/Navbar.jsx";
 // Page components
 import Home from "./pages/Home.jsx";
 import About from "./pages/About.jsx";
+import Submit from './pages/Submit.jsx';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
+          <Route path="/submit" element={<Submit />} />
 
           <Route
             path="*"

@@ -33,7 +33,7 @@ app.use((req, res, next) => {
 // Health check
 app.get("/", (req, res) => {
   res.json({
-    message: "Tic-Tac-Toe API",
+    message: "FBLA Project API",
     version: "1.0.0",
     status: "running",
   });
