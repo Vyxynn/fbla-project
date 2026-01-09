@@ -77,7 +77,7 @@ function Submit() {
             type="file"
             id="item-image"
             name="item-image"
-            accept="image/*"
+            accept="image/jpeg, image/jpg, image/png, image/webp"
           />
           <p
             className="invisible form-validation-error"
