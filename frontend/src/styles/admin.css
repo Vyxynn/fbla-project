@@ -1,0 +1,153 @@
+/* frontend/src/styles/admin.css */
+
+/* frontend/src/styles/admin.css */
+
+/* Admin Login Container */
+#admin-login-container {
+    max-width: 450px;
+    margin: 4rem auto;
+    padding: 2.5rem;
+    background-color: var(--form-bg);
+    font-family: system-ui, sans-serif;
+    box-shadow: var(--form-shadow);
+    border-radius: 8px;
+}
+
+/* Admin Login Heading */
+#admin-login-container h2 {
+    background-color: var(--form-header-bg);
+    color: var(--form-header-text);
+    padding: 1.25rem 1.5rem;
+    margin: -2.5rem -2.5rem 2rem -2.5rem;
+    font-size: 1.75rem;
+    font-weight: 600;
+    border-radius: 8px 8px 0 0;
+    text-align: center;
+}
+
+/* Admin Login Form */
+#admin-login-form {
+    background-color: var(--form-section-bg);
+    border: 1px solid var(--form-border);
+    border-radius: 6px;
+    padding: 1.5rem;
+    box-shadow: var(--form-shadow);
+    transition: box-shadow 0.2s ease;
+}
+
+#admin-login-form:hover {
+    box-shadow: var(--form-shadow-hover);
+}
+
+/* Form Questions */
+.admin-login-form-question {
+    margin-bottom: 1.5rem;
+}
+
+.admin-login-form-question:last-child {
+    margin-bottom: 0;
+    text-align: center;
+}
+
+/* Labels */
+.admin-login-form-question label {
+    display: block;
+    color: var(--form-label);
+    font-weight: 500;
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Password Input */
+.admin-login-form-question input[type="password"] {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    font-family: system-ui, sans-serif;
+    background-color: var(--input-bg);
+    color: var(--input-text);
+    border: 1px solid var(--input-border);
+    border-radius: 4px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    box-sizing: border-box;
+}
+
+.admin-login-form-question input[type="password"]:hover {
+    border-color: var(--input-border-hover);
+}
+
+.admin-login-form-question input[type="password"]:focus {
+    outline: none;
+    border-color: var(--input-border-focus);
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+}
+
+/* Placeholder Styling */
+.admin-login-form-question input[type="password"]::placeholder {
+    color: var(--form-placeholder);
+}
+
+/* Login Button */
+.admin-login-form-question button[type="submit"] {
+    background-color: var(--button-primary-bg);
+    color: var(--button-primary-text);
+    font-size: 1.125rem;
+    font-weight: 600;
+    padding: 0.875rem 2.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+    font-family: system-ui, sans-serif;
+    min-width: 150px;
+}
+
+.admin-login-form-question button[type="submit"]:hover {
+    background-color: var(--button-primary-hover);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.admin-login-form-question button[type="submit"]:active {
+    transform: translateY(1px);
+}
+
+.admin-login-form-question button[type="submit"]:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #admin-login-container {
+        margin: 2rem 1rem;
+        padding: 2rem;
+    }
+
+    #admin-login-container h2 {
+        margin: -2rem -2rem 1.5rem -2rem;
+        font-size: 1.5rem;
+        padding: 1rem 1.25rem;
+    }
+
+    #admin-login-form {
+        padding: 1.25rem;
+    }
+
+    .admin-login-form-question button[type="submit"] {
+        width: 100%;
+        min-width: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    #admin-login-container {
+        margin: 1.5rem 0.75rem;
+        padding: 1.5rem;
+    }
+
+    #admin-login-container h2 {
+        margin: -1.5rem -1.5rem 1.25rem -1.5rem;
+        font-size: 1.35rem;
+        padding: 0.875rem 1rem;
+    }
+}
