@@ -1,6 +1,7 @@
 // frontend/src/pages/About.jsx
 
 import React from "react";
+
 function About() {
     return (
         <section className="mt-4">

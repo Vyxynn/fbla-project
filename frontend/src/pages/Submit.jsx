@@ -1,5 +1,6 @@
 // frontend/src/pages/Submit.jsx
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/submit.css";
 import { handleSubmit } from "../scripts/submit.js";
 
@@ -7,8 +8,10 @@ function Submit() {
   const [showEmail, setShowEmail] = useState(false);
   const [showPhone, setShowPhone] = useState(false);
 
+  const navigate = useNavigate();
+
   const onSubmit = (e) => {
-    handleSubmit(e, showEmail, showPhone);
+    handleSubmit(e, showEmail, showPhone, navigate);
   };
 
   return (
