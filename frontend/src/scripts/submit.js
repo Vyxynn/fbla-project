@@ -1,6 +1,6 @@
 // frontend/src/scripts/submit.js
 
-export const handleSubmit = (e, showEmail, showPhone, navigate) => {
+export const handleSubmit = async (e, showEmail, showPhone, navigate) => {
   e.preventDefault();
   const form = e.target;
 
@@ -40,10 +40,37 @@ export const handleSubmit = (e, showEmail, showPhone, navigate) => {
     return null;
   }
 
-  alert("Success! Your submission is awaiting review by an admin");
-  navigate("/");
+  // Send to backend
+  try {
+    const formDataToSend = new FormData();
+    formDataToSend.append('itemName', formData.itemName);
+    formDataToSend.append('itemExtraInfo', formData.itemExtraInfo);
+    formDataToSend.append('itemLocation', formData.itemLocation);
+    formDataToSend.append('itemLocationExtraInfo', formData.itemLocationExtraInfo);
+    formDataToSend.append('itemImage', formData.itemImage);
+    formDataToSend.append('userName', formData.userName || '');
+    formDataToSend.append('userEmail', formData.userEmail || '');
+    formDataToSend.append('userPhone', formData.userPhone || '');
 
-  return formData;
+    const response = await fetch('http://localhost:3000/api/submit', {
+      method: 'POST',
+      body: formDataToSend,
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to submit');
+    }
+
+    const result = await response.json();
+    alert('Success! Your submission is awaiting review by an admin');
+    navigate('/');
+
+    return result;
+  } catch (error) {
+    console.error('Error submitting form:', error);
+    alert('Error submitting form. Please try again');
+    return null;
+  }
 };
 
 function handleValidation(formData, validationErrors) {
@@ -52,7 +79,7 @@ function handleValidation(formData, validationErrors) {
 
   let isValid = true;
 
-  // Hide all validation errors first
+  // Hide all validation errors
   Object.values(validationErrors).forEach((element) => {
     if (element) {
       element.textContent = "";
