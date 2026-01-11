@@ -1,0 +1,5 @@
+1. AdminApp.jsx: the main admin page that the rest are routed onto, AdminNavbar.jsx on left of screen
+2. AdminNavbar.jsx: routes to admin/, admin/submissions, and admin/items, logout button on bottom
+3. AdminHome.jsx: starting admin panel page, gives info
+4. AdminSubmissions.jsx: view, accept, and deny submissions before being viewed publicly
+5. AdminItems.jsx: view and delete already submitted items

@@ -36,7 +36,7 @@ export const handleLogin = async (e, navigate) => {
     if (data.success && data.token) {
       sessionStorage.setItem("adminToken", data.token);
       console.log("Login successful");
-      navigate("/");
+      navigate("/admin/home"); // Changed from "/" to "/admin/home"
     } else {
       console.log("Invalid password");
       alert("Invalid password");

@@ -6,6 +6,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import fs from "fs";
 import "dotenv/config";
+
 import apiRoutes from "./routes/api.js";
 import adminRoutes from "./routes/admin.js";
 
