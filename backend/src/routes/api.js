@@ -4,11 +4,13 @@ import express from "express";
 import multer from "multer";
 import path from "path";
 import { fileURLToPath } from "url";
+import fs from "fs"; // Add this import
 import {
   insertSubmission,
   getAllSubmissions,
   getSubmissionById,
   deleteSubmission,
+  insertItem,
 } from "../database/queries.js";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -75,7 +77,7 @@ router.post("/submit", upload.single("itemImage"), (req, res) => {
   }
 });
 
-// Get all submissions (for admin review)
+// Get all submissions
 router.get("/submissions", (req, res) => {
   try {
     const submissions = getAllSubmissions();
@@ -103,11 +105,57 @@ router.get("/submissions/:id", (req, res) => {
 // Delete a submission
 router.delete("/submissions/:id", (req, res) => {
   try {
+    const submission = getSubmissionById(req.params.id);
+
+    if (!submission) {
+      return res.status(404).json({ error: "Submission not found" });
+    }
+
+    // Delete from database
     deleteSubmission(req.params.id);
+
+    // Delete the image file if it exists
+    if (submission.itemImagePath) {
+      const imagePath = path.join(__dirname, "../..", submission.itemImagePath);
+
+      if (fs.existsSync(imagePath)) {
+        fs.unlinkSync(imagePath);
+        console.log(`Deleted image: ${imagePath}`);
+      } else {
+        console.log(`Image not found: ${imagePath}`);
+      }
+    }
+
     res.json({ message: "Submission deleted successfully" });
   } catch (error) {
     console.error("Error deleting submission:", error);
     res.status(500).json({ error: "Failed to delete submission" });
+  }
+});
+
+// Approve submission/add item
+router.post("/items", (req, res) => {
+  try {
+    const itemData = {
+      itemName: req.body.itemName,
+      itemExtraInfo: req.body.itemExtraInfo,
+      itemLocation: req.body.itemLocation,
+      itemLocationExtraInfo: req.body.itemLocationExtraInfo,
+      itemImagePath: req.body.itemImagePath,
+      userName: req.body.userName,
+      contactEmail: req.body.contactEmail,
+      contactPhone: req.body.contactPhone,
+    };
+
+    const id = insertItem(itemData);
+
+    res.status(201).json({
+      message: "Item approved successfully",
+      id: id,
+    });
+  } catch (error) {
+    console.error("Error approving item:", error);
+    res.status(500).json({ error: "Failed to approve item" });
   }
 });
 

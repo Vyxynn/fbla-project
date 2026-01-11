@@ -1,82 +1,82 @@
 // frontend/src/components/AdminNavbar.jsx
 
-import React from "react";
+import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { logout } from "../utils/auth.js";
+import "../styles/adminNavbar.css";
 
 function AdminNavbar() {
   const navigate = useNavigate();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleLogout = () => {
-    logout();
-    navigate("/admin");
+    if (confirm("Are you sure you would like to logout?")) {
+      logout();
+      navigate("/admin");
+    }
+  };
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
   };
 
   return (
-    <aside
-      style={{ width: "250px", backgroundColor: "#2c3e50", padding: "1rem" }}
-    >
-      <h2 style={{ color: "#ecf0f1", marginBottom: "2rem" }}>Admin Panel</h2>
-
-      <nav>
-        <ul style={{ listStyle: "none", padding: 0 }}>
-          <li style={{ marginBottom: "1rem" }}>
-            <NavLink
-              to="/admin/home"
-              style={({ isActive }) => ({
-                color: isActive ? "#ffdd57" : "#ecf0f1",
-                textDecoration: "none",
-                display: "block",
-                padding: "0.5rem",
-              })}
-            >
-              Home
-            </NavLink>
-          </li>
-          <li style={{ marginBottom: "1rem" }}>
-            <NavLink
-              to="/admin/submissions"
-              style={({ isActive }) => ({
-                color: isActive ? "#ffdd57" : "#ecf0f1",
-                textDecoration: "none",
-                display: "block",
-                padding: "0.5rem",
-              })}
-            >
-              Submissions
-            </NavLink>
-          </li>
-          <li style={{ marginBottom: "1rem" }}>
-            <NavLink
-              to="/admin/items"
-              style={({ isActive }) => ({
-                color: isActive ? "#ffdd57" : "#ecf0f1",
-                textDecoration: "none",
-                display: "block",
-                padding: "0.5rem",
-              })}
-            >
-              Items
-            </NavLink>
-          </li>
-        </ul>
-      </nav>
-
+    <>
+      {/* Hamburger Menu Button (Mobile Only) */}
       <button
-        onClick={handleLogout}
-        style={{
-          marginTop: "2rem",
-          padding: "0.5rem 1rem",
-          backgroundColor: "#e74c3c",
-          color: "#ffffff",
-          border: "none",
-          borderRadius: "4px",
-          cursor: "pointer",
-        }}
+        className={`admin-hamburger ${isMenuOpen ? "open" : ""}`}
+        onClick={toggleMenu}
       >
-        Logout
+        <span></span>
+        <span></span>
+        <span></span>
       </button>
-    </aside>
+
+      {/* Sidebar */}
+      <aside id="admin-navbar" className={isMenuOpen ? "open" : ""}>
+        <h2>Admin Panel</h2>
+
+        <nav>
+          <ul id="admin-navbar-list">
+            <li>
+              <NavLink
+                to="/admin/home"
+                className={({ isActive }) => (isActive ? "active" : "")}
+                onClick={closeMenu}
+              >
+                Home
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/admin/submissions"
+                className={({ isActive }) => (isActive ? "active" : "")}
+                onClick={closeMenu}
+              >
+                Submissions
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/admin/items"
+                className={({ isActive }) => (isActive ? "active" : "")}
+                onClick={closeMenu}
+              >
+                Items
+              </NavLink>
+            </li>
+          </ul>
+        </nav>
+
+        <button onClick={handleLogout} id="admin-logout-button">
+          Logout
+        </button>
+      </aside>
+    </>
   );
 }
 
