@@ -11,6 +11,9 @@ import {
   getSubmissionById,
   deleteSubmission,
   insertItem,
+  getAllItems,
+  getItemById,
+  deleteItem,
 } from "../database/queries.js";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -111,18 +114,15 @@ router.delete("/submissions/:id", (req, res) => {
       return res.status(404).json({ error: "Submission not found" });
     }
 
-    // Delete from database
     deleteSubmission(req.params.id);
 
-    // Delete the image file if it exists
-    if (submission.itemImagePath) {
+    // Delete the image file if it exists and if keepImage is false
+    if (req.query.keepImage !== 'true' && submission.itemImagePath) {
       const imagePath = path.join(__dirname, "../..", submission.itemImagePath);
 
       if (fs.existsSync(imagePath)) {
         fs.unlinkSync(imagePath);
         console.log(`Deleted image: ${imagePath}`);
-      } else {
-        console.log(`Image not found: ${imagePath}`);
       }
     }
 
@@ -156,6 +156,60 @@ router.post("/items", (req, res) => {
   } catch (error) {
     console.error("Error approving item:", error);
     res.status(500).json({ error: "Failed to approve item" });
+  }
+});
+
+// Get all items
+router.get("/items", (req, res) => {
+  try {
+    const items = getAllItems();
+    res.json(items);
+  } catch (error) {
+    console.error("Error fetching items:", error);
+    res.status(500).json({ error: "Failed to fetch items" });
+  }
+});
+
+// Get a specific item
+router.get("/items/:id", (req, res) => {
+  try {
+    const item = getItemById(req.params.id);
+    if (!item) {
+      res.status(404).json({ error: "Item not foun" });
+    }
+    res.json(item);
+  } catch (error) {
+    console.error("Error fetching item:", error);
+    res.status(500).json({ error: "Failed to fetch item" });
+  }
+});
+
+// Delete an item
+router.delete("/items/:id", (req, res) => {
+  try {
+    const item = getItemById(req.params.id);
+
+    if (!item) return res.status(404).json({ error: "Item not found" });
+
+    // Delete from database
+    deleteItem(req.params.id);
+
+    // Delete the image file if it exists
+    if (item.itemImagePath) {
+      const imagePath = path.join(__dirname, "../..", item.itemImagePath);
+
+      if (fs.existsSync(imagePath)) {
+        fs.unlinkSync(imagePath);
+        console.log(`Deleted image: ${imagePath}`);
+      } else {
+        console.log(`Image not found: ${imagePath}`);
+      }
+    }
+
+    res.json({ message: "Item deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting item:", error);
+    res.status(500).json({ error: "Failed to delete item" });
   }
 });
 

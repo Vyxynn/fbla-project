@@ -1,6 +1,7 @@
 // frontend/src/pages/AdminSubmissions.jsx
 
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { useState, useEffect } from "react";
 import ItemSubmission from "../components/ItemSubmission.jsx";
 
 function AdminSubmissions() {
@@ -19,8 +20,8 @@ function AdminSubmissions() {
       if (!response.ok) throw new Error("Failed to fetch submissions");
       const data = await response.json();
       setSubmissions(data);
-    } catch (err) {
-      setError(err.message);
+    } catch (error) {
+      setError(error.message);
     } finally {
       setLoading(false);
     }
@@ -38,7 +39,7 @@ function AdminSubmissions() {
       if (!response.ok) throw new Error("Failed to approve submission");
 
       // Delete from submissions
-      await fetch(`http://localhost:3000/api/submissions/${submission.id}`, {
+      await fetch(`http://localhost:3000/api/submissions/${submission.id}?keepImage=true`, {
         method: "DELETE",
       });
 
@@ -61,8 +62,8 @@ function AdminSubmissions() {
       );
       if (!response.ok) throw new Error("Failed to reject submission");
       fetchSubmissions();
-    } catch (err) {
-      alert("Error rejecting submission: " + err.message);
+    } catch (error) {
+      alert("Error rejecting submission: " + error.message);
     }
   };
 
