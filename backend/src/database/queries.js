@@ -1,6 +1,6 @@
 // backend/src/database/queries.js
 
-import { adminReviewDb, itemsDb } from "./init.js";
+import { adminReviewDb, itemsDb, commentsDb } from "./init.js";
 
 // Admin Review
 export const insertSubmission = (data) => {
@@ -77,5 +77,36 @@ export const getItemById = (id) => {
 
 export const deleteItem = (id) => {
   const stmt = itemsDb.prepare("DELETE FROM items WHERE id = ?");
+  return stmt.run(id);
+};
+
+// Comments
+export const insertComment = (data) => {
+  const stmt = commentsDb.prepare(`
+    INSERT INTO comments (itemId, name, response)
+    VALUES (?, ?, ?)
+  `);
+
+  const result = stmt.run(data.itemId, data.name, data.response);
+
+  return result.lastInsertRowid;
+};
+
+export const getCommentsByItemId = (itemId) => {
+  const stmt = commentsDb.prepare(
+    "SELECT * FROM comments WHERE itemId = ? ORDER BY createdAt DESC"
+  );
+  return stmt.all(itemId);
+};
+
+export const getAllComments = () => {
+  const stmt = commentsDb.prepare(
+    "SELECT * FROM comments ORDER BY createdAt DESC"
+  );
+  return stmt.all();
+};
+
+export const deleteComment = (id) => {
+  const stmt = commentsDb.prepare("DELETE FROM comments WHERE id = ?");
   return stmt.run(id);
 };

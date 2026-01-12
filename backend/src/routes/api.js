@@ -4,7 +4,7 @@ import express from "express";
 import multer from "multer";
 import path from "path";
 import { fileURLToPath } from "url";
-import fs from "fs"; // Add this import
+import fs from "fs";
 import {
   insertSubmission,
   getAllSubmissions,
@@ -14,6 +14,10 @@ import {
   getAllItems,
   getItemById,
   deleteItem,
+  insertComment,
+  getCommentsByItemId,
+  getAllComments,
+  deleteComment,
 } from "../database/queries.js";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -117,7 +121,7 @@ router.delete("/submissions/:id", (req, res) => {
     deleteSubmission(req.params.id);
 
     // Delete the image file if it exists and if keepImage is false
-    if (req.query.keepImage !== 'true' && submission.itemImagePath) {
+    if (req.query.keepImage !== "true" && submission.itemImagePath) {
       const imagePath = path.join(__dirname, "../..", submission.itemImagePath);
 
       if (fs.existsSync(imagePath)) {
@@ -175,7 +179,7 @@ router.get("/items/:id", (req, res) => {
   try {
     const item = getItemById(req.params.id);
     if (!item) {
-      res.status(404).json({ error: "Item not foun" });
+      return res.status(404).json({ error: "Item not found" });
     }
     res.json(item);
   } catch (error) {
@@ -210,6 +214,76 @@ router.delete("/items/:id", (req, res) => {
   } catch (error) {
     console.error("Error deleting item:", error);
     res.status(500).json({ error: "Failed to delete item" });
+  }
+});
+
+// ==================== COMMENTS ROUTES ====================
+
+// Submit a comment for an item
+router.post("/comments", (req, res) => {
+  try {
+    const { itemId, name, response } = req.body;
+
+    if (!itemId || !name || !response) {
+      return res.status(400).json({
+        error: "itemId, name, and response are required",
+      });
+    }
+
+    // Verify the item exists
+    const item = getItemById(itemId);
+    if (!item) {
+      return res.status(404).json({ error: "Item not found" });
+    }
+
+    const commentData = {
+      itemId,
+      name: name.trim(),
+      response: response.trim(),
+    };
+
+    const id = insertComment(commentData);
+
+    res.status(201).json({
+      message: "Comment added successfully",
+      id: id,
+    });
+  } catch (error) {
+    console.error("Error adding comment:", error);
+    res.status(500).json({ error: "Failed to add comment" });
+  }
+});
+
+// Get comments for a specific item
+router.get("/comments/:itemId", (req, res) => {
+  try {
+    const comments = getCommentsByItemId(req.params.itemId);
+    res.json(comments);
+  } catch (error) {
+    console.error("Error fetching comments:", error);
+    res.status(500).json({ error: "Failed to fetch comments" });
+  }
+});
+
+// Get all comments
+router.get("/comments", (req, res) => {
+  try {
+    const comments = getAllComments();
+    res.json(comments);
+  } catch (error) {
+    console.error("Error fetching comments:", error);
+    res.status(500).json({ error: "Failed to fetch comments" });
+  }
+});
+
+// Delete a comment (admin only - you might want to add auth middleware)
+router.delete("/comments/:id", (req, res) => {
+  try {
+    deleteComment(req.params.id);
+    res.json({ message: "Comment deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting comment:", error);
+    res.status(500).json({ error: "Failed to delete comment" });
   }
 });
 
