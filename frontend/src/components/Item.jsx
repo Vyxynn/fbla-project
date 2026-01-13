@@ -15,7 +15,7 @@ function Item({ item, onReplyClick }) {
     try {
       setLoadingComments(true);
       const response = await fetch(
-        `http://localhost:3000/api/comments/${item.id}`
+          `http://localhost:3000/api/commentsSub/${item.id}`
       );
       if (!response.ok) throw new Error("Failed to fetch comments");
       const data = await response.json();

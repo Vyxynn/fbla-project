@@ -12,7 +12,7 @@ const DB_DIR = path.join(__dirname, "../../database");
 
 // Check if directory exists
 if (!fs.existsSync(DB_DIR)) {
-  fs.mkdirSync(DB_DIR, { recursive: true });
+    fs.mkdirSync(DB_DIR, { recursive: true });
 }
 
 // Create adminReview DB
@@ -47,6 +47,17 @@ itemsDb.exec(`
     userName TEXT,
     contactEmail TEXT,
     contactPhone TEXT,
+    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP
+  )
+`);
+
+// Create admin comments DB
+adminReviewDb.exec(`
+  CREATE TABLE IF NOT EXISTS comments (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+    itemId INTEGER NOT NULL,
+    name TEXT NOT NULL,
+    response TEXT NOT NULL,
     createdAt DATETIME DEFAULT CURRENT_TIMESTAMP
   )
 `);

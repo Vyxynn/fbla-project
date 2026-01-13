@@ -57,16 +57,16 @@ function Items() {
     try {
       setSubmitting(true);
 
-      const response = await fetch("http://localhost:3000/api/comments", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          itemId: selectedItemId,
-          name: commentName,
-          response: commentResponse,
-        }),
+      const response = await fetch("http://localhost:3000/api/commentsSub", {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+              itemId: selectedItemId,
+              name: commentName,
+              response: commentResponse,
+          }),
       });
 
       if (!response.ok) throw new Error("Failed to submit comment");
