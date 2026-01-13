@@ -69,6 +69,24 @@ function AdminNavbar() {
                 Items
               </NavLink>
             </li>
+            <li>
+              <NavLink
+                to="/admin/commentsSub"
+                className={({ isActive }) => (isActive ? "active" : "")}
+                onClick={closeMenu}
+              >
+                Comments
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/admin/comments"
+                className={({ isActive }) => (isActive ? "active" : "")}
+                onClick={closeMenu}
+              >
+                Approved Comments
+              </NavLink>
+            </li>
           </ul>
         </nav>
 
