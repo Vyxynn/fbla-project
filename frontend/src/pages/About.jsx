@@ -4,9 +4,9 @@ import React from "react";
 
 function About() {
     return (
-        <section className="mt-4">
+        <section>
             <h2>About</h2>
-            <p>This site is built with Vite, React, and React‑Router.</p>
+            <p>This project is built with Vite, React, and Express.</p>
         </section>
     );
 }
