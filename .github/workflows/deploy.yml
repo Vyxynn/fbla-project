@@ -37,10 +37,6 @@ jobs:
       - name: Build
         working-directory: frontend
         run: npm run build
-        env:
-          # Vite needs the repo name as the base path for GitHub Pages.
-          # If you have a custom domain or deploy to the root, remove this.
-          BASE_URL: /fbla-project/
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
